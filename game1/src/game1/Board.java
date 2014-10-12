@@ -14,6 +14,8 @@ public class Board {
 
     public int b_width;
     public int b_height;
+    
+    public IColor color = new Black();
 
     public Board(int width, int height) {
         this.b_width = b_width;
@@ -21,7 +23,7 @@ public class Board {
     }
 
     public WorldImage drawImage() {
-        return new RectangleImage(new Posn(150, 150), b_width, b_height, new Black());
+        return new RectangleImage(new Posn(150, 150), b_width, b_height, color);
     }
 
 }
