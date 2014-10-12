@@ -42,7 +42,7 @@ public class PlayerBlock {
         }
     }
 
-    public int hitBlockOne(BlockOne block_one) {
+    public int hitBlockOne(Blocks block_one) {
         if (hitBlockOneX(block_one) && hitBlockOneY(block_one)) {
             return 1;
         } else if ((!(hitBlockOneX(block_one))) && hitBlockOneY(block_one)) {
@@ -52,16 +52,16 @@ public class PlayerBlock {
         }
     }
 
-    public boolean hitBlockOneX(BlockOne block_one) {
+    public boolean hitBlockOneX(Blocks block_one) {
         return (block_one.posn.x + block_one.width / 2 >= this.posn.x)
-                || (block_one.posn.x + block_one.width / 2 <= this.posn.x + this.width);
+                && (block_one.posn.x + block_one.width / 2 <= this.posn.x + this.width);
     }
 
-    public boolean hitBlockOneY(BlockOne block_one) {
+    public boolean hitBlockOneY(Blocks block_one) {
         return block_one.posn.y + block_one.height > this.posn.y;
     }
 
-    public int hitBlockTwo(BlockTwo block_two) {
+    public int hitBlockTwo(Blocks block_two) {
         if (hitBlockTwoX(block_two) && hitBlockTwoY(block_two)) {
             return 1;
         } else if ((!(hitBlockTwoX(block_two))) && hitBlockTwoY(block_two)) {
@@ -71,12 +71,12 @@ public class PlayerBlock {
         }
     }
 
-    public boolean hitBlockTwoX(BlockTwo block_two) {
+    public boolean hitBlockTwoX(Blocks block_two) {
         return (block_two.posn.x + block_two.width / 2 >= this.posn.x)
-                || (block_two.posn.x + block_two.width / 2 <= this.posn.x + this.width);
+                && (block_two.posn.x + block_two.width / 2 <= this.posn.x + this.width);
     }
 
-    public boolean hitBlockTwoY(BlockTwo block_two) {
+    public boolean hitBlockTwoY(Blocks block_two) {
         return block_two.posn.y + block_two.height > this.posn.y;
     }
 
