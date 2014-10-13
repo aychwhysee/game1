@@ -12,11 +12,11 @@ import javalib.worldimages.*;
 
 public class DodgyWorld extends World {
 
-    public final int b_width = 200;
-    public final int b_height = 500;
+    public static final int b_width = 200;
+    public static final int b_height = 500;
 
-    public int score;
-    public int speed;
+    public int score = 0;
+    public static int speed = 0;
     public int frames;
 
     public Blocks blocks;
@@ -30,6 +30,14 @@ public class DodgyWorld extends World {
     }
 
     public World onTick() {
+        if (this.playerblock.hitBlocks(this.blocks) == 1) {
+            gameOver = true;
+            return this.endOfWorld("Game Over!");
+        } else {
+            score++;
+            speed++;
+            return new DodgyWorld(blocks.fall(), this.playerblock);
+        }
 
     }
 
@@ -63,17 +71,23 @@ public class DodgyWorld extends World {
 
     public WorldImage scoreImage() {
         return new TextImage(
-                new Posn(180, 25),
+                new Posn(160, 25),
                 ("Score: " + this.score),
                 14,
                 new Green());
     }
-    
+
     public WorldImage makeImage() {
-        
+        return new OverlayImages(board(), new OverlayImages(blocks.drawImage(),
+                new OverlayImages(playerblock.drawImage(), scoreImage())));
     }
 
     public static void main(String[] args) {
+        DodgyWorld dodgy = new DodgyWorld(
+        new Blocks(b_width, b_height, speed),
+                new PlayerBlock(new Posn(b_width/2, 480), b_width, b_height ));
+        
+        dodgy.bigBang(200, 500, 0.5);
 
     }
 

@@ -63,7 +63,7 @@ public class Blocks {
 
     public WorldImage drawImage() {
         return new OverlayImages(new RectangleImage(this.posn, this.width, this.height, this.color1),
-                new RectangleImage(this.posn, this.width, this.height, this.color2));
+                new RectangleImage(this.posn2, this.width, this.height, this.color2));
         // return new RectangleImage(this.posn, this.width, this.height, this.color1);
     }
 
