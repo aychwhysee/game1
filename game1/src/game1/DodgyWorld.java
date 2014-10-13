@@ -10,37 +10,71 @@ import javalib.colors.*;
 import javalib.worldcanvas.*;
 import javalib.worldimages.*;
 
+public class DodgyWorld extends World {
 
-public class DodgyWorld {
-    
-    // Decided to trash snake and make a new game that is NOT snake.
-    // Going to save working on snake for a later non-class-related project.
-    // However, coding snake helped with getting used to Game Worlds so now...
-    // Going to make a new game. A much simpler game that still hits the
-    // elements needed for this assignment.
-    
-    /*
-    Calling this game "Dodgy"
-    - Two blocks will fall from the top of the screen. Simple square or rectangle
-    - Player-controlled rectangle at the bottom can move left or right
-    - You must dodge both blocks. If you catch either of them, the game ends.
-    - Score is based on how long you survive
-    - Either start the game really fast, or speed it up as it goes? Speed up as in
-      decrease the interval between each pair of blocks.
-    */
-    
-    /*
-    Classes I'll need:
-    - BlockOne
-    - BlockTwo (will operate like GoodBlock)
-    - PlayerBlock (player controlled)
-    - DodgyWorld (main)
-    - Testing class(es?)
-    */
+    public final int b_width = 200;
+    public final int b_height = 500;
 
+    public int score;
+    public int speed;
+    public int frames;
+
+    public Blocks blocks;
+    public PlayerBlock playerblock;
+
+    public boolean gameOver;
+
+    public DodgyWorld(Blocks blocks, PlayerBlock playerblock) {
+        this.blocks = blocks;
+        this.playerblock = playerblock;
+    }
+
+    public World onTick() {
+
+    }
+
+    public World onKeyEvent(String kee) {
+        if (kee.equals("left") || (kee.equals("right"))) {
+            return new DodgyWorld(this.blocks, playerblock.move(kee));
+        } else {
+            return this;
+        }
+    }
+
+    public WorldEnd worldEnds() {
+        if (gameOver) {
+            return new WorldEnd(true, new OverlayImages(this.makeImage(),
+                    new TextImage(new Posn(b_width / 2, b_height / 2),
+                            ("Game over! Your score is " + this.score),
+                            16,
+                            new White())));
+        } else {
+            return new WorldEnd(false, this.makeImage());
+        }
+    }
+
+    private WorldImage board() {
+        return new RectangleImage(
+                new Posn(b_width / 2, b_height / 2),
+                b_width,
+                b_height,
+                new Black());
+    }
+
+    public WorldImage scoreImage() {
+        return new TextImage(
+                new Posn(180, 25),
+                ("Score: " + this.score),
+                14,
+                new Green());
+    }
+    
+    public WorldImage makeImage() {
+        
+    }
 
     public static void main(String[] args) {
 
     }
-    
+
 }
