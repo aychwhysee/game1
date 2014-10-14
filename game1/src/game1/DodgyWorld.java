@@ -15,8 +15,8 @@ public class DodgyWorld extends World {
     public static final int b_width = 200;
     public static final int b_height = 500;
 
-    public int score = 0;
-    public static int speed = 0;
+    public int score;
+    public int speed;
     public int frames;
 
     public Blocks blocks;
@@ -24,26 +24,49 @@ public class DodgyWorld extends World {
 
     public boolean gameOver;
 
-    public DodgyWorld(Blocks blocks, PlayerBlock playerblock) {
+    public DodgyWorld() {
+        this(10);
+    }
+
+    public DodgyWorld(int speed) {
+        super();
+        this.blocks = new Blocks(b_width, b_height, speed);
+        this.playerblock = new PlayerBlock(new Posn(b_width / 2, 490), b_width,
+                b_height);
+        this.speed = speed;
+        this.frames = 0;
+        this.score = 0;
+        this.gameOver = false;
+    }
+
+    private DodgyWorld(Blocks blocks, PlayerBlock playerblock, int speed, int frames,
+            int score, boolean gameOver) {
         this.blocks = blocks;
         this.playerblock = playerblock;
+        this.speed = speed;
+        this.frames = frames;
+        this.score = score;
+        this.gameOver = gameOver;
     }
 
     public World onTick() {
         if (this.playerblock.hitBlocks(this.blocks) == 1) {
             gameOver = true;
-            return this.endOfWorld("Game Over!");
         } else {
             score++;
-            speed++;
-            return new DodgyWorld(blocks.fall(), this.playerblock);
         }
+        if (this.frames % 20 == 1) {
+            new Blocks(b_width, b_height, speed).fall();
+        }
+        return new DodgyWorld(blocks.fall(), playerblock, speed + 1,
+                frames + 1, score, gameOver);
 
     }
 
     public World onKeyEvent(String kee) {
         if (kee.equals("left") || (kee.equals("right"))) {
-            return new DodgyWorld(this.blocks, playerblock.move(kee));
+            return new DodgyWorld(blocks, playerblock.move(kee),
+                    speed, frames, score, gameOver);
         } else {
             return this;
         }
@@ -54,7 +77,7 @@ public class DodgyWorld extends World {
             return new WorldEnd(true, new OverlayImages(this.makeImage(),
                     new TextImage(new Posn(b_width / 2, b_height / 2),
                             ("Game over! Your score is " + this.score),
-                            16,
+                            13,
                             new White())));
         } else {
             return new WorldEnd(false, this.makeImage());
@@ -83,12 +106,8 @@ public class DodgyWorld extends World {
     }
 
     public static void main(String[] args) {
-        DodgyWorld dodgy = new DodgyWorld(
-        new Blocks(b_width, b_height, speed),
-                new PlayerBlock(new Posn(b_width/2, 480), b_width, b_height ));
-        
-        dodgy.bigBang(200, 500, 0.5);
-
+        DodgyWorld dodgy = new DodgyWorld();
+        dodgy.bigBang(200, 500, 0.15);
     }
 
 }

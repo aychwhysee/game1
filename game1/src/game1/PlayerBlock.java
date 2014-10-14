@@ -61,8 +61,8 @@ public class PlayerBlock {
     }
 
     public boolean hitBlocksY(Blocks blocks) {
-        return (blocks.posn.y + blocks.height > this.posn.y) ||
-                (blocks.posn2.y + blocks.height > this.posn.y);
+        return (blocks.posn.y + blocks.height >= this.posn.y) ||
+                (blocks.posn2.y + blocks.height >= this.posn.y);
     }
 
 //    public int hitBlockTwo(Blocks block_two) {
