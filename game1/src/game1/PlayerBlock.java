@@ -17,7 +17,7 @@ public class PlayerBlock {
     public int b_width; // board width
     public int b_height; // board height
 
-    public int width = 40; // block width (twice as wide as falling blocks)
+    public int width = 60; // block width (twice as wide as falling blocks)
     public int height = 20; // block height (arbitrary graphical look number)
 
     public int playerSpeed = 20;
@@ -55,34 +55,14 @@ public class PlayerBlock {
     public boolean hitBlocksX(Blocks blocks) {
         return ((blocks.posn.x + blocks.width / 2 >= this.posn.x)
                 && (blocks.posn.x + blocks.width / 2 <= this.posn.x + this.width))
-                ||
-                ((blocks.posn2.x + blocks.width / 2 >= this.posn.x)
+                || ((blocks.posn2.x + blocks.width / 2 >= this.posn.x)
                 && (blocks.posn2.x + blocks.width / 2 <= this.posn.x + this.width));
     }
 
     public boolean hitBlocksY(Blocks blocks) {
-        return (blocks.posn.y + blocks.height >= this.posn.y) ||
-                (blocks.posn2.y + blocks.height >= this.posn.y);
+        return (blocks.posn.y + blocks.height >= this.posn.y)
+                || (blocks.posn2.y + blocks.height >= this.posn.y);
     }
-
-//    public int hitBlockTwo(Blocks block_two) {
-//        if (hitBlockTwoX(block_two) && hitBlockTwoY(block_two)) {
-//            return 1;
-//        } else if ((!(hitBlockTwoX(block_two))) && hitBlockTwoY(block_two)) {
-//            return -1;
-//        } else {
-//            return 0;
-//        }
-//    }
-//
-//    public boolean hitBlockTwoX(Blocks block_two) {
-//        return (block_two.posn.x + block_two.width / 2 >= this.posn.x)
-//                && (block_two.posn.x + block_two.width / 2 <= this.posn.x + this.width);
-//    }
-//
-//    public boolean hitBlockTwoY(Blocks block_two) {
-//        return block_two.posn.y + block_two.height > this.posn.y;
-//    }
 
     public WorldImage drawImage() {
         return new RectangleImage(this.posn, this.width, this.height, this.color);

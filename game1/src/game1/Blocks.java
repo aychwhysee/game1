@@ -12,8 +12,8 @@ import javalib.worldimages.*;
 
 public class Blocks {
 
-    public Posn posn; // block one?
-    public Posn posn2; // block two?
+    public Posn posn; // block one
+    public Posn posn2; // block two
 
     public int speed;
     public int b_width; // Board width
@@ -46,11 +46,6 @@ public class Blocks {
     private int randomX(int b_width) {
         return random.nextInt(b_width - (width * 2)) + width;
     }
-    
-    // Need to make sure posn and posn2 are not the same...
-    // Or I mean I could just have this property of the game be that
-    // they don't HAVE to be separate from each other right
-    // After all, I am in control...
 
     public Blocks fall() {
         return new Blocks(
@@ -64,7 +59,6 @@ public class Blocks {
     public WorldImage drawImage() {
         return new OverlayImages(new RectangleImage(this.posn, this.width, this.height, this.color1),
                 new RectangleImage(this.posn2, this.width, this.height, this.color2));
-        // return new RectangleImage(this.posn, this.width, this.height, this.color1);
     }
 
 }
