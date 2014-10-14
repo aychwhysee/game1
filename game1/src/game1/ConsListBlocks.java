@@ -24,25 +24,14 @@ public class ConsListBlocks implements ListBlocks {
         return new OverlayImages(first.drawImage(), rest.drawListBlocks());
     }
 
-    public int length() {
-        return rest.length() + 1;
-    }
-
-    public boolean isEmpty() {
-        return false;
-    }
-
-    public ListBlocks add(Blocks blocks) {
-        return new ConsListBlocks(first, rest.add(blocks));
-    }
-    
     public boolean getHit(PlayerBlock playerblock) {
         if (playerblock.hitBlocksX(first) && playerblock.hitBlocksY(first)) {
             return true;
-        } else return
-            rest.getHit(playerblock);     
+        } else {
+            return rest.getHit(playerblock);
+        }
     }
-    
+
     public ListBlocks fall() {
         return new ConsListBlocks(first.fall(), rest.fall());
     }
