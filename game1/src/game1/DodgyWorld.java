@@ -18,55 +18,65 @@ public class DodgyWorld extends World {
     public int score;
     public int speed;
     public int frames;
+    public int interval = 10;
 
-    public Blocks blocks;
     public PlayerBlock playerblock;
+    public ListBlocks listblocks;
 
     public boolean gameOver;
 
     public DodgyWorld() {
-        this(10);
+        this(5);
     }
 
     public DodgyWorld(int speed) {
         super();
-        this.blocks = new Blocks(b_width, b_height, speed);
+        this.listblocks = new MTListBlocks();
         this.playerblock = new PlayerBlock(new Posn(b_width / 2, 490), b_width,
                 b_height);
         this.speed = speed;
         this.frames = 0;
+        this.interval = interval;
         this.score = 0;
         this.gameOver = false;
     }
 
-    private DodgyWorld(Blocks blocks, PlayerBlock playerblock, int speed, int frames,
-            int score, boolean gameOver) {
-        this.blocks = blocks;
+    private DodgyWorld(ListBlocks listblocks, PlayerBlock playerblock, int speed,
+            int frames, int score, int interval, boolean gameOver) {
+        this.listblocks = listblocks;
         this.playerblock = playerblock;
         this.speed = speed;
         this.frames = frames;
+        this.interval = interval;
         this.score = score;
         this.gameOver = gameOver;
     }
 
     public World onTick() {
-        if (this.playerblock.hitBlocks(this.blocks) == 1) {
+        ListBlocks new_listblocks = this.listblocks;
+        if (new_listblocks.getHit(playerblock)) {
             gameOver = true;
-        } else {
-            score++;
         }
-        if (this.frames % 20 == 1) {
-            new Blocks(b_width, b_height, speed).fall();
+        score++;
+        if (this.frames % (30 - interval) == 1) {
+            Blocks newBlocks = new Blocks(b_width, b_height, speed);
+            new_listblocks = new ConsListBlocks(newBlocks, new_listblocks);
+            while (!(speed > 20)) {
+                speed++;
+            }
+            while (!(interval > 25)) {
+                interval++;
+            }
         }
-        return new DodgyWorld(blocks.fall(), playerblock, speed + 1,
-                frames + 1, score, gameOver);
+        return new DodgyWorld(new_listblocks.fall(), playerblock, speed,
+                frames + 1, score, interval, gameOver);
 
     }
 
     public World onKeyEvent(String kee) {
         if (kee.equals("left") || (kee.equals("right"))) {
-            return new DodgyWorld(blocks, playerblock.move(kee),
-                    speed, frames, score, gameOver);
+            return new DodgyWorld(listblocks, playerblock.move(kee),
+                    speed, frames, score, interval, gameOver);
         } else {
             return this;
         }
@@ -101,7 +111,7 @@ public class DodgyWorld extends World {
     }
 
     public WorldImage makeImage() {
-        return new OverlayImages(board(), new OverlayImages(blocks.drawImage(),
+        return new OverlayImages(board(), new OverlayImages(listblocks.drawListBlocks(),
                 new OverlayImages(playerblock.drawImage(), scoreImage())));
     }
 

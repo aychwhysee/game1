@@ -55,6 +55,7 @@ public class Blocks {
                 this.b_height,
                 this.speed);
     }
+    
 
     public WorldImage drawImage() {
         return new OverlayImages(new RectangleImage(this.posn, this.width, this.height, this.color1),

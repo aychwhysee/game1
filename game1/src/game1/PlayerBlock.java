@@ -17,7 +17,7 @@ public class PlayerBlock {
     public int b_width; // board width
     public int b_height; // board height
 
-    public int width = 60; // block width (twice as wide as falling blocks)
+    public int width = 20; // block width (twice as wide as falling blocks)
     public int height = 20; // block height (arbitrary graphical look number)
 
     public int playerSpeed = 20;
@@ -53,15 +53,17 @@ public class PlayerBlock {
     }
 
     public boolean hitBlocksX(Blocks blocks) {
-        return ((blocks.posn.x + blocks.width / 2 >= this.posn.x)
-                && (blocks.posn.x + blocks.width / 2 <= this.posn.x + this.width))
-                || ((blocks.posn2.x + blocks.width / 2 >= this.posn.x)
-                && (blocks.posn2.x + blocks.width / 2 <= this.posn.x + this.width));
+        return ((blocks.posn.x + blocks.width / 2 >= this.posn.x - this.width/2)
+                && (blocks.posn.x - blocks.width / 2 <= this.posn.x + this.width/2))
+                || ((blocks.posn2.x + blocks.width / 2 >= this.posn.x - this.width/2)
+                && (blocks.posn2.x - blocks.width / 2 <= this.posn.x + this.width/2));
     }
 
     public boolean hitBlocksY(Blocks blocks) {
-        return (blocks.posn.y + blocks.height >= this.posn.y)
-                || (blocks.posn2.y + blocks.height >= this.posn.y);
+        return ((blocks.posn.y + blocks.height >= this.posn.y - this.height/2)
+                && (blocks.posn.y <= this.posn.y + this.height/2))
+                || ((blocks.posn2.y + blocks.height >= this.posn.y - this.height/2)
+                && (blocks.posn2.y <= this.posn.y + this.height/2));
     }
 
     public WorldImage drawImage() {
