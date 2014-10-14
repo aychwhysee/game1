@@ -17,7 +17,7 @@ public class PlayerBlock {
     public int b_width; // board width
     public int b_height; // board height
 
-    public int width = 20; // block width (twice as wide as falling blocks)
+    public int width = 30; // block width (twice as wide as falling blocks)
     public int height = 20; // block height (arbitrary graphical look number)
 
     public int playerSpeed = 20;
