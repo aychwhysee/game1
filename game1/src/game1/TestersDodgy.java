@@ -42,16 +42,22 @@ public class TestersDodgy {
     PlayerBlock p1left = new PlayerBlock(new Posn(80, 490), 200, 500);
     PlayerBlock p1right = new PlayerBlock(new Posn(120, 490), 200, 500);
 
-    Blocks bt1 = randomBlocks(85, 115, 470, 510);
-    Blocks bf1 = randomBlocks(25, 75, 300, 340);
-    Blocks brt1 = new Blocks(200, 500, 10);
-
     DodgyWorld p1w = new DodgyWorld(listblocks, this.p1, speed, frames, score,
             interval, gameOver);
     DodgyWorld p1leftw = new DodgyWorld(listblocks, this.p1left, speed, frames,
             score, interval, gameOver);
     DodgyWorld p1rightw = new DodgyWorld(listblocks, this.p1right, speed, frames,
             score, interval, gameOver);
+
+    Blocks bt1 = randomBlocks(95, 105, 480, 500);
+    Blocks bf1 = randomBlocks(20, 70, 300, 340);
+
+    Blocks brt1 = new Blocks(200, 500, 10);
+
+    Blocks bff1 = new Blocks(new Posn(100, 0), new Posn(150, 0), 200, 500, 10);
+    Blocks bff2 = new Blocks(new Posn(100, 10), new Posn(150, 10), 200, 500, 10);
+    Blocks bff3 = new Blocks(new Posn(100, 20), new Posn(150, 20), 200, 500, 10);
+    Blocks bff4 = new Blocks(new Posn(100, 30), new Posn(150, 30), 200, 500, 10);
 
     // Test the move method move in the PlayerBlock class
     public boolean testMove(Tester t) {
@@ -152,8 +158,19 @@ public class TestersDodgy {
                         true, "test randomX");
     }
 
+    // Since we now know that randomX works, we can just plug in whatever
+    // number for posn.x and posn2.x when testing for fall.
     public boolean testFall(Tester t) {
-        return true;
+        return t.checkExpect(this.bff1.fall(),
+                this.bff2, "test fall" + "\n") &&
+                t.checkExpect(this.bff2.fall(),
+                        this.bff3, "test fall" + "\n") &&
+                t.checkExpect(this.bff3.fall(),
+                        this.bff4, "test fall" + "\n") &&
+                t.checkExpect(this.bff1.fall().fall(),
+                        this.bff3, "test fall twice" + "\n") &&
+                t.checkExpect(this.bff1.fall().fall().fall(),
+                        this.bff4, "test fall thrice" + "\n");
     }
 
     public boolean testWorldEnds(Tester t) {
