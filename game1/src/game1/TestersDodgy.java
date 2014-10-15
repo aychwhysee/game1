@@ -109,7 +109,26 @@ public class TestersDodgy {
     }
 
     public boolean testHitBlocksY(Tester t) {
-        return true;
+        return t.checkExpect(this.p1.hitBlocksY(bt1),
+                true, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bt1),
+                        true, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bt1),
+                        true, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bt1),
+                        true, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bt1),
+                        true, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bf1),
+                        false, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bf1),
+                        false, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bf1),
+                        false, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bf1),
+                        false, "test hitBlocksY random")
+                && t.checkExpect(this.p1.hitBlocksY(bf1),
+                        false, "test hitBlocksY random");
     }
 
     public boolean testHitBlocks(Tester t) {

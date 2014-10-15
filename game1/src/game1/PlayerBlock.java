@@ -42,15 +42,15 @@ public class PlayerBlock {
         }
     }
 
-    public int hitBlocks(Blocks blocks) {
-        if (hitBlocksX(blocks) && hitBlocksY(blocks)) {
-            return 1;
-        } else if ((!(hitBlocksX(blocks))) && hitBlocksY(blocks)) {
-            return -1;
-        } else {
-            return 0;
-        }
-    }
+//    public int hitBlocks(Blocks blocks) {
+//        if (hitBlocksX(blocks) && hitBlocksY(blocks)) {
+//            return 1;
+//        } else if ((!(hitBlocksX(blocks))) && hitBlocksY(blocks)) {
+//            return -1;
+//        } else {
+//            return 0;
+//        }
+//    }
 
     public boolean hitBlocksX(Blocks blocks) {
         return ((blocks.posn.x + blocks.width / 2 >= this.posn.x - this.width/2)
