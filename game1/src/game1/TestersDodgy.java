@@ -202,18 +202,27 @@ public class TestersDodgy {
 
     // Test the speed, interval, ListBlocks part of onTick
     public boolean testOnTick2(Tester t) {
-//        return t.checkExpect(this.ot3.onTick(),
-//                this.ot4, "test onTick speed, interval, ListBlocks");
-        return true;
-        // It works. The test passes, but it'll say it doesn't when run
+        return t.checkExpect(this.ot3.onTick(),
+                this.ot4, "test onTick speed, interval, ListBlocks");
+//        return true;
+        // It works. The test passes (technically), but it'll say it doesn't when run
         // because I can't figure out the new random X co-ordinates
         // the game will spit out when a new pair of blocks are added
         // on to ListBlocks. Everything else matches - speed, interval,
         // and adding a new set of random blocks.
     }
 
+    // Since we know onTick can successfully change gameOver, we can just
+    // set gameOver to be true for the purpose of this test.
     public boolean testWorldEnds(Tester t) {
-        return true;
+        return t.checkExpect(this.ot2.worldEnds(),
+                new WorldEnd(true, new OverlayImages(this.ot2.makeImage(),
+                                new TextImage(new Posn(100, 250),
+                                        ("Game over! Your score is " + ot2.score),
+                                        13,
+                                        new White())))) &&
+                t.checkExpect(this.ot3.worldEnds(),
+                        new WorldEnd(false, this.ot3.makeImage()));
     }
 
     public static void main(String[] args) {
