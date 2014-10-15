@@ -43,7 +43,7 @@ public class Blocks {
         this.speed = speed;
     }
 
-    private int randomX(int b_width) {
+    public int randomX(int b_width) {
         return random.nextInt(b_width - (width * 2)) + width;
     }
 

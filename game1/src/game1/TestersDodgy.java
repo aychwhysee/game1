@@ -12,6 +12,7 @@ import javalib.worldimages.*;
 
 public class TestersDodgy {
 
+    public Blocks blocks;
     public ListBlocks listblocks;
     public PlayerBlock playerblock;
     public int speed;
@@ -43,6 +44,7 @@ public class TestersDodgy {
 
     Blocks bt1 = randomBlocks(85, 115, 470, 510);
     Blocks bf1 = randomBlocks(25, 75, 300, 340);
+    Blocks brt1 = new Blocks(200, 500, 10);
 
     DodgyWorld p1w = new DodgyWorld(listblocks, this.p1, speed, frames, score,
             interval, gameOver);
@@ -77,6 +79,7 @@ public class TestersDodgy {
                         this.p1w, "test onKeyEvent - right" + "\n")
                 && t.checkExpect(this.p1rightw.onKeyEvent("left"),
                         this.p1w, "test onKeyEvent - left" + "\n")
+                // Check that up and down do nothing
                 && t.checkExpect(this.p1w.onKeyEvent("up"),
                         this.p1w, "test onKeyEvent - up" + "\n")
                 && t.checkExpect(this.p1w.onKeyEvent("down"),
@@ -84,7 +87,6 @@ public class TestersDodgy {
     }
 
     public boolean testHitBlocksX(Tester t) {
-
         return t.checkExpect(this.p1.hitBlocksX(bt1),
                 true, "test hitBlocksX random")
                 && t.checkExpect(this.p1.hitBlocksX(bt1),
@@ -105,7 +107,6 @@ public class TestersDodgy {
                         false, "test hitBlockX random")
                 && t.checkExpect(this.p1.hitBlocksX(bf1),
                         false, "test hitBlockX random");
-
     }
 
     public boolean testHitBlocksY(Tester t) {
@@ -131,12 +132,24 @@ public class TestersDodgy {
                         false, "test hitBlocksY random");
     }
 
-    public boolean testHitBlocks(Tester t) {
-        return true;
+    public Random random = new Random();
+
+    // Will be used for testRandomX
+    public boolean checkRandomX() {
+        return (this.brt1.randomX(200) > 10 && this.brt1.randomX(200) < 190);
     }
 
     public boolean testRandomX(Tester t) {
-        return true;
+        return t.checkExpect(this.checkRandomX(),
+                true, "test randomX")
+                && t.checkExpect(this.checkRandomX(),
+                        true, "test randomX")
+                && t.checkExpect(this.checkRandomX(),
+                        true, "test randomX")
+                && t.checkExpect(this.checkRandomX(),
+                        true, "test randomX")
+                && t.checkExpect(this.checkRandomX(),
+                        true, "test randomX");
     }
 
     public boolean testFall(Tester t) {
