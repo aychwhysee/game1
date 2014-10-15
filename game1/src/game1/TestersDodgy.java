@@ -42,6 +42,8 @@ public class TestersDodgy {
     PlayerBlock p1left = new PlayerBlock(new Posn(80, 490), 200, 500);
     PlayerBlock p1right = new PlayerBlock(new Posn(120, 490), 200, 500);
 
+    // Since we're only using these to test for move, the other arguments
+    // in the constructor can just be nothing
     DodgyWorld p1w = new DodgyWorld(listblocks, this.p1, speed, frames, score,
             interval, gameOver);
     DodgyWorld p1leftw = new DodgyWorld(listblocks, this.p1left, speed, frames,
@@ -59,7 +61,19 @@ public class TestersDodgy {
     Blocks bff3 = new Blocks(new Posn(100, 20), new Posn(150, 20), 200, 500, 10);
     Blocks bff4 = new Blocks(new Posn(100, 30), new Posn(150, 30), 200, 500, 10);
 
-    // Test the move method move in the PlayerBlock class
+    ListBlocks lb1 = new ConsListBlocks(
+            new Blocks(new Posn(100, 460),
+                    new Posn(150, 460),
+                    200, 500, 10),
+            new MTListBlocks());
+    DodgyWorld ot1 = new DodgyWorld(this.lb1, this.p1, 10, 10, 10, 10, false);
+    ListBlocks lb2 = new ConsListBlocks(
+            new Blocks(new Posn(100, 470),
+                    new Posn(150, 470),
+                    200, 500, 10),
+            new MTListBlocks());
+    DodgyWorld ot2 = new DodgyWorld(this.lb2, this.p1, 10, 11, 11, 10, true);
+
     public boolean testMove(Tester t) {
         return t.checkExpect(this.p1.move("left"),
                 this.p1left, "test move - left" + "\n")
@@ -138,8 +152,6 @@ public class TestersDodgy {
                         false, "test hitBlocksY random");
     }
 
-    public Random random = new Random();
-
     // Will be used for testRandomX
     public boolean checkRandomX() {
         return (this.brt1.randomX(200) > 10 && this.brt1.randomX(200) < 190);
@@ -162,22 +174,29 @@ public class TestersDodgy {
     // number for posn.x and posn2.x when testing for fall.
     public boolean testFall(Tester t) {
         return t.checkExpect(this.bff1.fall(),
-                this.bff2, "test fall" + "\n") &&
-                t.checkExpect(this.bff2.fall(),
-                        this.bff3, "test fall" + "\n") &&
-                t.checkExpect(this.bff3.fall(),
-                        this.bff4, "test fall" + "\n") &&
-                t.checkExpect(this.bff1.fall().fall(),
-                        this.bff3, "test fall twice" + "\n") &&
-                t.checkExpect(this.bff1.fall().fall().fall(),
+                this.bff2, "test fall" + "\n")
+                && t.checkExpect(this.bff2.fall(),
+                        this.bff3, "test fall" + "\n")
+                && t.checkExpect(this.bff3.fall(),
+                        this.bff4, "test fall" + "\n")
+                && t.checkExpect(this.bff1.fall().fall(),
+                        this.bff3, "test fall twice" + "\n")
+                && t.checkExpect(this.bff1.fall().fall().fall(),
                         this.bff4, "test fall thrice" + "\n");
     }
 
-    public boolean testWorldEnds(Tester t) {
-        return true;
+    // Test just the gameOver, score++, and frames part of onTick
+    public boolean testOnTick1(Tester t) {
+        return t.checkExpect(this.ot1.onTick(),
+                this.ot2, "test onTick gameOver, score, frames");
     }
 
-    public boolean testOnTick(Tester t) {
+    // Test the speed, interval, ListBlocks part of onTick
+    public boolean testOnTick2(Tester t) {
+
+    }
+
+    public boolean testWorldEnds(Tester t) {
         return true;
     }
 
