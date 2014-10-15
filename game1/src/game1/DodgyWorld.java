@@ -60,10 +60,10 @@ public class DodgyWorld extends World {
         if (this.frames % (30 - interval) == 1) {
             Blocks newBlocks = new Blocks(b_width, b_height, speed);
             new_listblocks = new ConsListBlocks(newBlocks, new_listblocks);
-            while (!(speed > 20)) {
+            if (speed < 20) {
                 speed++;
             }
-            while (!(interval > 25)) {
+            if (interval < 15) {
                 interval++;
             }
         }
