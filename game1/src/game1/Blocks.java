@@ -35,7 +35,7 @@ public class Blocks {
         this.posn2 = new Posn(randomX(b_width), 0);
     }
 
-    private Blocks(Posn posn, Posn posn2, int b_width, int b_height, int speed) {
+    public Blocks(Posn posn, Posn posn2, int b_width, int b_height, int speed) {
         this.posn = posn;
         this.posn2 = posn2;
         this.b_width = b_width;

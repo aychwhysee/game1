@@ -41,7 +41,7 @@ public class DodgyWorld extends World {
         this.gameOver = false;
     }
 
-    private DodgyWorld(ListBlocks listblocks, PlayerBlock playerblock, int speed,
+    public DodgyWorld(ListBlocks listblocks, PlayerBlock playerblock, int speed,
             int frames, int score, int interval, boolean gameOver) {
         this.listblocks = listblocks;
         this.playerblock = playerblock;
@@ -57,7 +57,6 @@ public class DodgyWorld extends World {
         if (new_listblocks.getHit(playerblock)) {
             gameOver = true;
         }
-        score++;
         if (this.frames % (30 - interval) == 1) {
             Blocks newBlocks = new Blocks(b_width, b_height, speed);
             new_listblocks = new ConsListBlocks(newBlocks, new_listblocks);
@@ -68,6 +67,7 @@ public class DodgyWorld extends World {
                 interval++;
             }
         }
+        score++;
         return new DodgyWorld(new_listblocks.fall(), playerblock, speed,
                 frames + 1, score, interval, gameOver);
 
